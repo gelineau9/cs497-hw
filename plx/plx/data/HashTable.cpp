@@ -8,6 +8,7 @@
 #include <plx/object/Globals.hpp>
 #include <plx/object/HashCode.hpp>
 #include <plx/object/TypeIds.hpp>
+#include <plx/evaluator/Evaluator.hpp>
 
 namespace PLX {
 
@@ -44,7 +45,20 @@ namespace PLX {
         }
         return true;
     }
-
+    Object* HashTable::eval(Evaluator* etor){
+        HashTable* evalHash = new HashTable();
+        for (auto iter = _map.begin(); iter != _map.end(); iter++) {
+            try{
+                Object* evalKey=etor->evalExpr(iter->first);
+                Object* evalValue=etor->evalExpr(iter->second);
+                evalHash->put(evalKey,evalValue);
+            }
+            catch (const std::exception& e) {
+                std::cerr << "Error evaluating key-value pair: " << e.what() << std::endl;
+            }
+        }
+        return evalHash;
+    }
     bool HashTable::get(Object* key, Object*& value) const {
         auto iter = _map.find(key);
         if (iter != _map.end()) {

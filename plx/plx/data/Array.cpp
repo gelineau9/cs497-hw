@@ -11,6 +11,7 @@
 #include <plx/object/Object.hpp>
 #include <plx/object/ThrowException.hpp>
 #include <plx/object/TypeIds.hpp>
+#include <plx/evaluator/Evaluator.hpp>
 
 namespace PLX {
 
@@ -55,6 +56,23 @@ namespace PLX {
             }
         }
         return true;
+    }
+
+    Object* Array::eval(Evaluator* etor) {
+        Object* value;  
+        Array* evalArray = new Array(this->length());
+        for(int i=0; i<this->length(); i++){
+            try{
+                this->get(i,value);
+                evalArray->set(i,etor->evalExpr(value));
+            }
+            catch(const std::exception& e){
+                std::cerr << "Error" << e.what() <<std::endl;
+                return nullptr;
+            }
+        }
+        
+        return evalArray; 
     }
 
     bool Array::get(int index, Object*& value) {

@@ -29,6 +29,7 @@ namespace PLX {
         bool index(Object* indexer, Object*& retrievedValue) override;
         bool length(int& len) override;
         void showOn(std::ostream& ostream) const override;
+        Object* eval(Evaluator* etor) override;
         TypeId typeId() const override;
 
     private:

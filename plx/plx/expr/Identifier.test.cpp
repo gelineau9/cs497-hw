@@ -34,7 +34,7 @@ namespace PLX {
         EXPECT_NE(hashCode2, hashCode3);
     }
 
-#if 0
+
     TEST_F(Identifier_Test, Eval) {
         Evaluator* etor = new Evaluator();
         Identifier* abc = Identifier::create("abc");
@@ -43,15 +43,15 @@ namespace PLX {
         Object* value = abc->eval(etor);
         EXPECT_EQ(i100, value);
     }
-#endif
 
-#if 0
+
+
     TEST_F(Identifier_Test, EvalUnbound) {
         Evaluator* etor = new Evaluator();
         Identifier* abc = Identifier::create("abc");
         EXPECT_THROW(abc->eval(etor), Array*);
     }
-#endif
+
 
     TEST_F(Identifier_Test, ShowOn) {
         {

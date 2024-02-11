@@ -9,6 +9,7 @@
 #include <plx/object/Globals.hpp>
 #include <plx/object/Object.hpp>
 #include <plx/object/TypeIds.hpp>
+#include <plx/evaluator/Evaluator.hpp>
 
 namespace PLX {
 
@@ -32,6 +33,17 @@ namespace PLX {
     Identifier::Identifier(const std::string& name)
         : Symbolic(name)
     {}
+
+    Object* Identifier::eval(Evaluator* etor){
+        try{
+            return etor->evalExpr(this);
+        }
+        catch(const std::exception& e){
+            std::cerr << "Error" << e.what() <<std::endl;
+            return nullptr;
+        }
+
+    }
 
     TypeId Identifier::typeId() const {
         return TypeId::E_IDENTIFIER;

@@ -41,6 +41,7 @@ namespace PLX {
         bool toArray(Array*& array) override;
         bool toList(List*& list) override;
         bool toQueue(Queue*& queue) override;
+        Object* eval(Evaluator* etor) override;
         TypeId typeId() const override;
 
     private:

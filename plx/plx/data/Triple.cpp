@@ -8,6 +8,7 @@
 #include <plx/object/Object.hpp>
 #include <plx/object/ThrowException.hpp>
 #include <plx/object/TypeIds.hpp>
+#include <plx/evaluator/Evaluator.hpp>
 
 namespace PLX {
 
@@ -38,6 +39,23 @@ namespace PLX {
             return othertriple->isEmpty();
         }
         return _key->equals(othertriple->_key) && _value->equals(othertriple->_value);
+    }
+
+    Object* Triple::eval(Evaluator* etor){
+        if(this->isEmpty()==true){
+            return this;
+        }
+        else{
+            Object* evalKey = etor->evalExpr(this->key());
+            Object* evalVal = etor->evalExpr(this->value());
+            Object* evalNext = this->next()->eval(etor);
+            Triple* evalTriple = new Triple();
+            evalTriple->setKey(evalKey);
+            evalTriple->setValue(evalVal);
+            Triple* tripleNext = static_cast<Triple*>(evalNext);
+            evalTriple->setNext(tripleNext);
+            return evalTriple;
+        } 
     }
 
     bool Triple::isEmpty() const {
@@ -84,6 +102,13 @@ namespace PLX {
 
     Triple* Triple::next() const {
         return _next;
+    }
+
+    void Triple::setKey(Object* key) {
+        if (isEmpty()) {
+            throwException("Triple", "Operation not allowed on empty triple", this);
+        }
+        _key = key;
     }
 
     void Triple::setNext(Triple* next) {

@@ -11,6 +11,7 @@
 #include <plx/object/Object.hpp>
 #include <plx/object/ThrowException.hpp>
 #include <plx/object/TypeIds.hpp>
+#include <plx/evaluator/Evaluator.hpp>
 
 namespace PLX {
 
@@ -61,6 +62,20 @@ namespace PLX {
             return _first->equals(otherList->_first) && _rest->equals(otherList->_rest);
         }
         return false;
+    }
+
+    Object* List::eval(Evaluator* etor){
+        if(this->isEmpty()==true){
+            return this;
+        }
+        else{
+            Object* evalFirst = etor->evalExpr(this->first());
+            Object* evalRest = this->rest()->eval(etor);
+            List* evalList = new List();
+            evalList->setFirst(evalFirst);
+            evalList->setRest(evalRest);
+            return evalList;
+        } 
     }
 
     Object* List::first() {

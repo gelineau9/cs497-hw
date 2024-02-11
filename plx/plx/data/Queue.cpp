@@ -9,6 +9,7 @@
 #include <plx/object/Object.hpp>
 #include <plx/object/ThrowException.hpp>
 #include <plx/object/TypeIds.hpp>
+#include <plx/evaluator/Evaluator.hpp>
 
 namespace PLX {
 
@@ -68,6 +69,20 @@ namespace PLX {
             return _head->equals(otherQueue->_head);
         }
         return false;
+    }
+
+    Object* Queue::eval(Evaluator* etor){
+        Queue* evalQueue = new Queue();
+        List* elems = this->asList(); 
+        while (!elems->isEmpty()) {  
+            Object* elem = elems->first();
+            elems->setFirst(etor->evalExpr(elem));
+            evalQueue->enq(elems->first());
+            elems = elems->restAsList();
+        }
+
+        return evalQueue;
+
     }
 
     bool Queue::isEmpty() const {

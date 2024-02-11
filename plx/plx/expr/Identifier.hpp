@@ -12,7 +12,7 @@ namespace PLX {
         static Identifier* create(const std::string& name);
 
         // Overridden functions --------------------------------------------
-
+        Object* eval(Evaluator* etor) override;
         TypeId typeId() const override;
 
     private:
