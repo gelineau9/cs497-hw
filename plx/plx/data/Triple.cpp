@@ -49,11 +49,8 @@ namespace PLX {
             Object* evalKey = etor->evalExpr(this->key());
             Object* evalVal = etor->evalExpr(this->value());
             Object* evalNext = this->next()->eval(etor);
-            Triple* evalTriple = new Triple();
-            evalTriple->setKey(evalKey);
-            evalTriple->setValue(evalVal);
             Triple* tripleNext = static_cast<Triple*>(evalNext);
-            evalTriple->setNext(tripleNext);
+            Triple* evalTriple = new Triple(evalKey,evalVal,evalNext);
             return evalTriple;
         } 
     }
@@ -102,13 +99,6 @@ namespace PLX {
 
     Triple* Triple::next() const {
         return _next;
-    }
-
-    void Triple::setKey(Object* key) {
-        if (isEmpty()) {
-            throwException("Triple", "Operation not allowed on empty triple", this);
-        }
-        _key = key;
     }
 
     void Triple::setNext(Triple* next) {

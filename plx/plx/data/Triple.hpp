@@ -16,7 +16,6 @@ namespace PLX {
         Object* key() const;
         Object* value() const;
         Triple* next() const;
-        void setKey(Object* value);
         void setValue(Object* value);
         void setNext(Triple* next);
         Triple* locate(const Object* key);
