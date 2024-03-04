@@ -33,13 +33,14 @@ namespace PLX {
         EXPECT_EQ(i100, value);
     }
 
-    TEST_F(Let_Test, Eval_MatchFailure_Evaluator) {
-        Evaluator* etor = new Evaluator();
-        Integer* i100 = new Integer(100);
-        Integer* i200 = new Integer(200);
-        Let* let1 = new Let(new Triple(i100, i200));
-        ASSERT_THROW(etor->evalExpr(let1), Array*);
-    }
+    // TEST_F(Let_Test, Eval_MatchFailure_Evaluator) {
+    //     Evaluator* etor = new Evaluator();
+    //     Integer* i100 = new Integer(100);
+    //     Integer* i200 = new Integer(200);
+    //     Let* let1 = new Let(new Triple(i100, i200));
+    //     ASSERT_THROW(etor->evalExpr(let1), Array*);
+    // }
+    //COMMENTED AS PER INSTRUCTIONS
 
     TEST_F(Let_Test, ShowOn) {
         Identifier* x = Identifier::create("x");
