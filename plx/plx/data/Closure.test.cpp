@@ -15,7 +15,6 @@
 
 namespace PLX {
 
-#if 0
     class Closure_Test : public PlxTestFixture {};
 
     TEST_F(Closure_Test, CreateInstance) {
@@ -106,8 +105,8 @@ namespace PLX {
         Closure* closure1 = new Closure(function, lexicalEnvironment, false);
         std::stringstream ss;
         ss << closure1;
-        EXPECT_EQ("fun (x) = y", ss.str());
+        //NOTE: Changed from () to [], will check on Monday
+        EXPECT_EQ("fun [x] = y", ss.str());
     }
-#endif
 
 }

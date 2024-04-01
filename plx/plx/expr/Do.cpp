@@ -1,5 +1,4 @@
 #include <cassert>
-
 #include <plx/data/Triple.hpp>
 #include <plx/data/List.hpp>
 #include <plx/evaluator/Evaluator.hpp>

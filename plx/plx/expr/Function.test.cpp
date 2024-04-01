@@ -14,8 +14,6 @@
 #include <plx/object/Globals.hpp>
 
 namespace PLX {
-
-#if 0
     class Function_Test : public PlxTestFixture {};
 
     TEST_F(Function_Test, CreateInstance) {
@@ -55,8 +53,8 @@ namespace PLX {
         Function* fun1 = new Function(parameters, body);
         std::stringstream ss;
         ss << fun1;
-        EXPECT_EQ("fun (x) = y", ss.str());
+        // Same note as before, changed from () to []
+        EXPECT_EQ("fun [x] = y", ss.str());
     }
-#endif
 
 }

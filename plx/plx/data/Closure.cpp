@@ -13,14 +13,33 @@
 
 namespace PLX {
 
+    Closure::Closure(Function* function, Triple* env, bool boolCase)
+    {
+        _function = function;
+        _env = env;
+        _boolCase = boolCase;
+    }
+
     Object* Closure::apply(Evaluator* etor, List* arguments) {
-        (void)etor;
-        (void)arguments;
-        return GLOBALS->NilObject();
+        Object* value = GLOBALS->NilObject();
+        Triple* savedEnv = etor->environment();
+        List* params = _function->getParams();
+        etor->setEnvironment(_env);
+        while (!params->isEmpty() && !arguments->isEmpty()) {
+            Object* arg = arguments->first();
+            Object* param = params->first();
+            etor->bind(param,arg);
+            arguments = arguments->restAsList();
+            params = params->restAsList();
+        }
+        value = etor->evalExpr(_function->getBody());
+        etor->setEnvironment(savedEnv);
+        return value;
+            
     }
 
     void Closure::showOn(std::ostream& ostream) const {
-        (void)ostream;
+        ostream << "fun " << _function->getParams() << " = " << _function->getBody();
     }
 
     TypeId Closure::typeId() const {

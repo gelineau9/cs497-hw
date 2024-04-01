@@ -10,7 +10,7 @@ namespace PLX {
 
     class Closure : public Object {
     public:
-
+        Closure(Function* function, Triple* env, bool boolCase);
         // Overridden functions --------------------------------------------
 
         Object* apply(Evaluator* etor, List* arguments) override;
@@ -18,6 +18,9 @@ namespace PLX {
         TypeId typeId() const override;
 
     private:
+        Function* _function;
+        Triple* _env;
+        bool _boolCase;
 
     };
 

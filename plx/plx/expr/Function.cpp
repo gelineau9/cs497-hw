@@ -12,20 +12,32 @@
 
 namespace PLX {
 
-    // Function::Function(what paremeters?)
-    // {}
+    Function::Function(List* parameters, Object* body)
+    {
+        _parameters = parameters;
+        _body = body;
+    }
 
     Object* Function::eval(Evaluator* etor) {
-        (void)etor;
-        return GLOBALS->NilObject();
+        Closure* newClosure = new Closure(this, etor->environment(), false);
+        return newClosure;
+        //MAKE NOTE TO TALK TO JEFF ABOUT THE THREE ARGS OF CLOSURE
     }
 
     void Function::showOn(std::ostream& ostream) const {
-        (void)ostream;
+        ostream << "fun " << _parameters << " = " << _body; 
     }
 
     TypeId Function::typeId() const {
         return TypeId::E_FUNCTION;
+    }
+    
+    Object* Function::getBody(){
+        return _body;
+    }
+
+    List* Function::getParams(){
+        return _parameters;
     }
 
 }
