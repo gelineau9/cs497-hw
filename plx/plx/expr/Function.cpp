@@ -19,13 +19,15 @@ namespace PLX {
     }
 
     Object* Function::eval(Evaluator* etor) {
-        Closure* newClosure = new Closure(this, etor->environment(), false);
+        Closure* newClosure = new Closure(this, etor->environment());
         return newClosure;
         //MAKE NOTE TO TALK TO JEFF ABOUT THE THREE ARGS OF CLOSURE
     }
 
     void Function::showOn(std::ostream& ostream) const {
-        ostream << "fun " << _parameters << " = " << _body; 
+        ostream << "fun ";
+        _parameters->showOn2(ostream);
+        ostream << " = " << _body; 
     }
 
     TypeId Function::typeId() const {

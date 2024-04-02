@@ -22,7 +22,7 @@ namespace PLX {
         Object* body = GLOBALS->NilObject();
         Function* function = new Function(parameters, body);
         Triple* lexicalEnvironment = GLOBALS->EmptyTriple();
-        Closure* closure1 = new Closure(function, lexicalEnvironment, false);
+        Closure* closure1 = new Closure(function, lexicalEnvironment);
         EXPECT_TRUE(closure1->isA(TypeId::D_CLOSURE));
         EXPECT_EQ("Closure", closure1->typeName());
     }
@@ -32,7 +32,7 @@ namespace PLX {
         Object* body = GLOBALS->NilObject();
         Function* function = new Function(parameters, body);
         Triple* lexicalEnvironment = GLOBALS->EmptyTriple();
-        Closure* closure1 = new Closure(function, lexicalEnvironment, false);
+        Closure* closure1 = new Closure(function, lexicalEnvironment);
         Evaluator* etor = new Evaluator();
         List* arguments = GLOBALS->EmptyList();
         Object* value = closure1->apply(etor, arguments);
@@ -48,7 +48,7 @@ namespace PLX {
         Object* body = new Array({x, y});
         Function* function = new Function(parameters, body);
         Triple* lexicalEnvironment = GLOBALS->EmptyTriple();
-        Closure* closure1 = new Closure(function, lexicalEnvironment, false);
+        Closure* closure1 = new Closure(function, lexicalEnvironment);
         Evaluator* etor = new Evaluator();
         List* arguments = new List(i100, new List(i200));
         Object* value = closure1->apply(etor, arguments);
@@ -66,7 +66,7 @@ namespace PLX {
         Object* body = x;
         Function* function = new Function(parameters, body);
         Triple* lexicalEnvironment = new Triple(x, i100);
-        Closure* closure1 = new Closure(function, lexicalEnvironment, false);
+        Closure* closure1 = new Closure(function, lexicalEnvironment);
         Evaluator* etor = new Evaluator();
         // The lexical environment has x=100 and the dynamic environment has x=200.
         // The lexical environment should be used before the dynamic environment.
@@ -84,7 +84,7 @@ namespace PLX {
         Object* body = x;
         Function* function = new Function(parameters, body);
         Triple* lexicalEnvironment = GLOBALS->EmptyTriple();
-        Closure* closure1 = new Closure(function, lexicalEnvironment, false);
+        Closure* closure1 = new Closure(function, lexicalEnvironment);
         Evaluator* etor = new Evaluator();
         // The lexical environment is empty and the dynamic environment has x=200.
         // The dynamic environment is not visible to this expression, though.
@@ -102,11 +102,10 @@ namespace PLX {
         Object* body = y;
         Function* function = new Function(parameters, body);
         Triple* lexicalEnvironment = new Triple(z, i100);
-        Closure* closure1 = new Closure(function, lexicalEnvironment, false);
+        Closure* closure1 = new Closure(function, lexicalEnvironment);
         std::stringstream ss;
         ss << closure1;
-        //NOTE: Changed from () to [], will check on Monday
-        EXPECT_EQ("fun [x] = y", ss.str());
+        EXPECT_EQ("fun (x) = y", ss.str());
     }
 
 }

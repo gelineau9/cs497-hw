@@ -53,8 +53,7 @@ namespace PLX {
         Function* fun1 = new Function(parameters, body);
         std::stringstream ss;
         ss << fun1;
-        // Same note as before, changed from () to []
-        EXPECT_EQ("fun [x] = y", ss.str());
+        EXPECT_EQ("fun (x) = y", ss.str());
     }
 
 }

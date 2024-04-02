@@ -225,6 +225,9 @@ namespace PLX {
     void List::showOn(std::ostream& ostream) const {
         showOnWith(ostream, "[", ", ", "]");
     }
+    void List::showOn2(std::ostream& ostream) const {
+        showOnWith(ostream, "(", ", ", ")");
+    }
 
     void List::showOnWith(std::ostream& ostream, const std::string& open, const std::string& sep, const std::string& close) const {
         const List* list = this;

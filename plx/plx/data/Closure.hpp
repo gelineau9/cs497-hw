@@ -10,7 +10,7 @@ namespace PLX {
 
     class Closure : public Object {
     public:
-        Closure(Function* function, Triple* env, bool boolCase);
+        Closure(Function* function, Triple* env);
         // Overridden functions --------------------------------------------
 
         Object* apply(Evaluator* etor, List* arguments) override;
@@ -20,7 +20,6 @@ namespace PLX {
     private:
         Function* _function;
         Triple* _env;
-        bool _boolCase;
 
     };
 

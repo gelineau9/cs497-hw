@@ -13,6 +13,7 @@ namespace PLX {
         List();
         List(Object* first);
         List(Object* first, Object* rest);
+        void showOn2(std::ostream& ostream) const;
 
         // Unique functions ------------------------------------------------
 

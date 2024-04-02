@@ -22,16 +22,21 @@ namespace PLX {
 
         Object* eval(Evaluator* etor, List* args) {
             const std::string PRIM_NAME = "eval";
-            (void)etor;
-            (void)args;
-            return GLOBALS->NilObject();
+            List* argValues = evalArgs(etor,args);
+            Object* arg = argValues->first();
+            return etor->evalExpr(arg);
         }
 
         Object* notOperator(Evaluator* etor, List* args) {
             const std::string PRIM_NAME = "not";
-            (void)etor;
-            (void)args;
-            return GLOBALS->NilObject();
+            Boolean* boolEval = dynamic_cast<Boolean*>(eval(etor,args));
+            if(boolEval->boolValue() == (true)){
+                boolEval = new Boolean(false);
+            }
+            else{
+                boolEval = new Boolean(true);
+            }
+            return boolEval;
         }
 
         Object* type(Evaluator* etor, List* args) {

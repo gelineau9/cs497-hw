@@ -13,11 +13,10 @@
 
 namespace PLX {
 
-    Closure::Closure(Function* function, Triple* env, bool boolCase)
+    Closure::Closure(Function* function, Triple* env)
     {
         _function = function;
         _env = env;
-        _boolCase = boolCase;
     }
 
     Object* Closure::apply(Evaluator* etor, List* arguments) {
@@ -39,7 +38,9 @@ namespace PLX {
     }
 
     void Closure::showOn(std::ostream& ostream) const {
-        ostream << "fun " << _function->getParams() << " = " << _function->getBody();
+        ostream << "fun ";
+        _function->getParams()->showOn2(ostream); 
+        ostream << " = " << _function->getBody();
     }
 
     TypeId Closure::typeId() const {

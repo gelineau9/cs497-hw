@@ -18,18 +18,7 @@ namespace PLX {
         Object* testObj = etor->evalExpr(_abstractionObj);
         if(testObj->isA(TypeId::D_CLOSURE)){
             Closure* newClosure = dynamic_cast<Closure*>(testObj);
-            List* newArgs = _arguments;
-            List* params = _arguments;
-            List* head = params;
-            while (!newArgs->isEmpty()) {
-                Object* arg = newArgs->first();
-                value = etor->evalExpr(arg);
-                params->setFirst(value);
-                newArgs = newArgs->restAsList();
-                params = params->restAsList();
-            }           
-            //Is this right, check.
-            value = newClosure->apply(etor, head);
+            value = newClosure->apply(etor, _arguments);
         }
         return value;
     }

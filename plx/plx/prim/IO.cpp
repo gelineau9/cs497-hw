@@ -16,27 +16,39 @@
 namespace PLX {
     namespace Prim_IO {
 
-        Object* display(Evaluator* etor, List* args) {
-            (void)etor;
-            (void)args;
+        Object* display(Evaluator* etor, List* args){
+            List* argVals = evalArgs(etor, args);
+            std::ostream& ostream = std::cout;
+            while(!argVals->isEmpty()){
+                Object* val = argVals->first();
+                val->displayOn(ostream);
+            }
             return GLOBALS->NilObject();
         }
 
         Object* nl(Evaluator* etor, List* args) {
-            (void)etor;
-            (void)args;
+            const std::string PRIM_NAME = "newLine";
+            evalNArgs(PRIM_NAME, etor, args, {});
+            std::cout << '\n';
             return GLOBALS->NilObject();
         }
 
         Object* readLine(Evaluator* etor, List* args) {
-            (void)etor;
-            (void)args;
-            return GLOBALS->NilObject();
+            const std::string PRIM_NAME = "readLine";
+            evalNArgs(PRIM_NAME, etor, args, {});
+            std::string line;
+            std::getline(std::cin, line);
+            String* returnVal = new String(line);
+            return returnVal;
         }
 
         Object* show(Evaluator* etor, List* args) {
-            (void)etor;
-            (void)args;
+            List* argVals = evalArgs(etor, args);
+            std::ostream& ostream = std::cout;
+            while(!argVals->isEmpty()){
+                Object* val = argVals->first();
+                val->showOn(ostream);
+            }
             return GLOBALS->NilObject();
         }
 

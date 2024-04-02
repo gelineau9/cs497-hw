@@ -57,8 +57,7 @@ namespace PLX {
             Apply* app1 = new Apply(fun1, arguments);
             std::stringstream ss;
             ss << app1;
-            ///SAME QUESTION
-            EXPECT_EQ("(fun [x] = x)(y)", ss.str());
+            EXPECT_EQ("(fun (x) = x)(y)", ss.str());
         }
     }
 
