@@ -4,6 +4,7 @@
 #include <unistd.h>
 
 #include <plx/data/HashTable.hpp>
+#include <plx/evaluator/Evaluator.hpp>
 #include <plx/data/List.hpp>
 #include <plx/data/Queue.hpp>
 #include <plx/lexer/Lexer.hpp>
@@ -13,6 +14,8 @@
 #include <plx/object/Globals.hpp>
 #include <plx/object/HashCode.hpp>
 #include <plx/object/Object.hpp>
+
+#include <plx/parser/P_Primitive.hpp>
 
 PLX::HashTable* parseOptions(int argc, char** argv) {
     PLX::HashTable* argMap = new PLX::HashTable();
@@ -80,8 +83,37 @@ void shutdown() {
     delete PLX::GLOBALS;
 }
 
-void readEvalPrint() {
-    // TODO fill this in
+namespace PLX{
+    void readEvalPrint() {
+        std::cout << "PLX> ";
+        std::string line;
+        getline(std::cin, line);
+        PLX::Lexer* lexer = new PLX::Lexer();
+        PLX::InputStream* is = new InputStream(line);
+        PLX::List* tokenList = new List();
+        PLX::Object* saveVal = new Object();
+        PLX::Object* returnVal = new Object();
+        PLX::Evaluator* etor = new Evaluator();
+        bool boolLexer = lexer->tokenize(is,tokenList,saveVal);
+        if(boolLexer){
+            if(!pAny(tokenList,saveVal)){
+                std::cout << "error:" << saveVal << "\n";
+            }
+            else{
+                returnVal = etor->evalExpr(saveVal);
+                std::cout << returnVal << "\n";
+            }
+            
+        }
+        else{
+            std::cout << "error" << saveVal << "\n";
+        }
+    }
+}
+void repLoop(){
+    while(true){
+        PLX::readEvalPrint();
+    }
 }
 
 int main(int argc, char** argv) {
@@ -89,7 +121,7 @@ int main(int argc, char** argv) {
     PLX::HashTable* argMap = parseOptions(argc, argv);
     PLX::GLOBALS->SetArgMap(argMap);
     // std::cout << "ArgMap = " << argMap << "\n";
-    readEvalPrint();
+    repLoop();
     shutdown();
     return 0;
 }

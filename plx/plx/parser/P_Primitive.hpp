@@ -11,7 +11,7 @@ namespace PLX {
     class Symbol;
 
     Object* strip(Object* tokenObj);
-
+    bool pIdentifier(List*& tokens, Object*& value);
     bool pOpenBrace(List*& tokens, Object*& value);
     bool pCloseBrace(List*& tokens, Object*& value);
     bool pOpenBracket(List*& tokens, Object*& value);

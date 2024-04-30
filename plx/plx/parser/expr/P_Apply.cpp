@@ -13,10 +13,32 @@ namespace PLX {
     }
 
     bool pApply(List*& tokens, Object*& value) {
-        // delete these three lines before fixing this function
-        (void)tokens;
-        (void)value;
-        return false;
+        Object* identifier;
+        if (!pIdentifier(tokens, identifier)) {
+            if(!pParenExpr(tokens, identifier)){
+                return false;
+            }
+            else{
+                if(!pArgumentList(tokens, value)){
+                    return false;
+                }
+                else{
+                    Queue* valueQueue = static_cast<Queue*>(value);
+                    value = new Apply(identifier, valueQueue->asList());
+                    return true;
+                }
+            }
+        }
+        else{
+            if(!pArgumentList(tokens, value)){
+                    return false;
+                }
+            else{
+                Queue* valueQueue = static_cast<Queue*>(value);
+                value = new Apply(identifier, valueQueue->asList());
+                return true;
+            }
+        }
     }
 
 }

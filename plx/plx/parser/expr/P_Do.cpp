@@ -8,10 +8,29 @@
 namespace PLX {
 
     bool pDo(List*& tokens, Object*& value) {
-        // delete these three lines before fixing this function
-        (void)tokens;
-        (void)value;
-        return false;
+        Object* ignore;
+        Queue* values = new Queue();
+        if (!pReservedDo(tokens, ignore)) {
+            return false;
+        }
+        else{
+            Object* result;
+            while(pAny(tokens, result)){
+                values->enq(result);
+            }
+        }
+        if(tokens->isEmpty()) {
+            return false;
+        }
+
+        if (!pReservedEnd(tokens, ignore)) {
+            return false;
+        }
+        
+        value = new Do(values->asList());
+        
+
+        return true;
     }
 
 }
