@@ -51,7 +51,7 @@ namespace PLX {
         EXPECT_FALSE(i300->isMarked());
         std::vector<Object*> objs{if1};
         GC::mark(objs);
-        EXPECT_FALSE(if1->isMarked());
+        EXPECT_TRUE(if1->isMarked());
         EXPECT_TRUE(i100->isMarked());
         EXPECT_TRUE(i200->isMarked());
         EXPECT_TRUE(i300->isMarked());

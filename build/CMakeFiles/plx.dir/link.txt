@@ -1,0 +1,1 @@
+/usr/bin/clang++-14 CMakeFiles/plx.dir/plx/main.cpp.o -o /home/bengelineau/wsu-cs497/bin/plx  libplx_lib.a 

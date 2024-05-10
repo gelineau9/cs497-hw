@@ -51,8 +51,9 @@ namespace PLX {
     }
 
     void Do::markChildren(std::vector<Object*>& objs) {
-        (void)objs;
-        // TODO
+        objs.push_back(_exprs);
+        objs.push_back(_reverseExprs);
+        mark(objs);
     }
 
     void Do::showOn(std::ostream& ostream) const {
