@@ -80,10 +80,12 @@ namespace PLX {
     }
 
     void GC::mark(std::vector<Object*>& objs) {
-        while(!objs.empty()){
-            objs.back()->mark(objs);
+        while (!objs.empty()) {
+            Object* curr = objs.back();
             objs.pop_back();
+            curr->mark(objs);
         }
+    
     }
 
     void GC::sweep() {

@@ -56,8 +56,9 @@ namespace PLX {
     }
 
     void If::markChildren(std::vector<Object*>& objs) {
-        (void)objs;
-        // TODO
+        objs.push_back(_cond);
+        objs.push_back(_conseq);
+        objs.push_back(_alt);
     }
 
     void If::showOn(std::ostream& ostream) const {
